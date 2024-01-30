@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 
 import "./globals.css";
+import { UiProvider } from "./ui-provider";
+import { WindowDecoration } from "./components/native/window-decoration";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,7 +16,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className=" !bg-transparent border border-solid h-[100vh]">
+        <UiProvider>
+          <WindowDecoration />
+          {children}
+        </UiProvider>
+      </body>
     </html>
   );
 }
