@@ -5,18 +5,25 @@ import { useEffect } from "react";
 
 export function UiProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
+    (async function () {})();
+
     async function initGlobalShortcut() {
       const globalShortcut = await import("@tauri-apps/api/globalShortcut");
       const { appWindow } = await import("@tauri-apps/api/window");
-      // const isRegistered = await globalShortcut.isRegistered(
-      //   "CommandOrControl+,"
-      // );
+      const isRegistered = await globalShortcut.isRegistered(
+        "CommandOrControl+,"
+      );
 
-      // console.log("ctrl+,", isRegistered);
+      console.log("ctrl+,", isRegistered);
 
-      globalShortcut.register("CommandOrControl+,", function () {
-        appWindow.hide();
-      });
+      // globalShortcut.register("CommandOrControl+,", function () {
+      //   appWindow.hide();
+      // });
+
+      // globalShortcut.register("CommandOrControl+.", function () {
+      //   console.log("trigger ctrl + ]");
+      //   appWindow.show();
+      // });
     }
 
     async function destroyGlobalShortcut() {
@@ -28,7 +35,7 @@ export function UiProvider({ children }: { children: React.ReactNode }) {
     return () => {
       destroyGlobalShortcut();
     };
-  });
+  }, []);
 
   return <NextUIProvider>{children}</NextUIProvider>;
 }

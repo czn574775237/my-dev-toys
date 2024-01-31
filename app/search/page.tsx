@@ -36,10 +36,6 @@ export default function Page() {
         await appWindow.setSize(new LogicalSize(500, 500));
       }
     }
-    if (e.ctrlKey && (e.key === "w" || e.key === "w")) {
-      console.log("Ctrl + W Press");
-      await appWindow.hide();
-    }
   };
 
   const onClearSearchText = async function () {

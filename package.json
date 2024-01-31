@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@microsoft/fetch-event-source": "^2.0.1",
     "@nextui-org/react": "^2.2.9",
     "@tauri-apps/api": "^1.5.3",
     "framer-motion": "^11.0.3",

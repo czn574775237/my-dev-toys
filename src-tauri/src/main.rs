@@ -2,10 +2,27 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use tauri::CustomMenuItem;
-use tauri::GlobalShortcutManager;
 use tauri::Manager;
 use tauri::SystemTray;
 use tauri::SystemTrayMenu;
+
+/// 初始化热键的绑定
+fn init_hotkey_binding() -> global_hotkey::GlobalHotKeyManager {
+    use global_hotkey::{
+        hotkey::{Code, HotKey, Modifiers},
+        GlobalHotKeyManager,
+    };
+
+    // initialize the hotkeys manager
+    let manager = GlobalHotKeyManager::new().unwrap();
+
+    // construct the hotkey
+    let hotkey = HotKey::new(Some(Modifiers::SHIFT), Code::KeyD);
+
+    // register it
+    let _ = manager.register(hotkey);
+    manager
+}
 
 fn main() {
     tauri::Builder::default()
@@ -34,8 +51,8 @@ fn main() {
                         .add_item(CustomMenuItem::new("quit", "Quit"))
                         .add_item(CustomMenuItem::new("open", "Open")),
                 )
-                .on_event(move |event| {
-                    let tray_handle = app_handle.tray_handle_by_id(tray_id).unwrap();
+                .on_event(move |_event| {
+                    let _tray_handle = app_handle.tray_handle_by_id(tray_id).unwrap();
                 })
                 .build(app)?;
 
