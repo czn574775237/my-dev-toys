@@ -68,7 +68,7 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 64,
+        "height": 106,
         "title": "my-dev-toys",
         "width": 500,
         "center": true,
