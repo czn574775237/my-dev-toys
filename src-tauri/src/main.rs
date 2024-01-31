@@ -1,12 +1,15 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+use tauri::CustomMenuItem;
+use tauri::GlobalShortcutManager;
 use tauri::Manager;
+use tauri::SystemTray;
+use tauri::SystemTrayMenu;
 
 fn main() {
     tauri::Builder::default()
         .setup(|app| {
-          
             #[allow(unused)]
             use window_vibrancy::{apply_blur, apply_vibrancy, NSVisualEffectMaterial};
 
@@ -22,7 +25,36 @@ fn main() {
             apply_blur(&window, Some((18, 18, 18, 125)))
                 .expect("Unsupported platform! 'apply_blur' is only supported on Windows");
 
+            let app_handle = app.handle();
+            let tray_id = "my-tray";
+            SystemTray::new()
+                .with_id(tray_id)
+                .with_menu(
+                    SystemTrayMenu::new()
+                        .add_item(CustomMenuItem::new("quit", "Quit"))
+                        .add_item(CustomMenuItem::new("open", "Open")),
+                )
+                .on_event(move |event| {
+                    let tray_handle = app_handle.tray_handle_by_id(tray_id).unwrap();
+                })
+                .build(app)?;
+
             Ok(())
+        })
+        .on_system_tray_event(|app, event| match event {
+            tauri::SystemTrayEvent::MenuItemClick { id, .. } => {
+                let window = app.get_window("main").expect("get the main window failed");
+                if id == "open" {
+                    let _ = window.show();
+                } else if id == "quit" {
+                    let _ = window.close();
+                }
+            }
+            tauri::SystemTrayEvent::LeftClick { .. } => {
+                let window = app.get_window("main").expect("get the main window failed");
+                let _ = window.show();
+            }
+            _ => {}
         })
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

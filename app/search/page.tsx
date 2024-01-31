@@ -81,7 +81,7 @@ export default function Page() {
       {result.length === 0 && (
         <div className="p-2 flex grid-cols-4 gap-4">
           <Kbd key="Ctrl">Enter [Search]</Kbd>
-          <Kbd key="ctrl">Ctrl + W [Hide]</Kbd>
+          <Kbd key="Ctrl">Ctrl + , [Hide]</Kbd>
         </div>
       )}
       {result.length > 0 && (

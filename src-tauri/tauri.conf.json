@@ -24,7 +24,14 @@
         "unmaximize": true,
         "unminimize": true,
         "startDragging": true
+      },
+      "globalShortcut": {
+        "all": true
       }
+    },
+    "systemTray": {
+      "iconPath": "icons/icon.png",
+      "iconAsTemplate": true
     },
     "bundle": {
       "active": true,
