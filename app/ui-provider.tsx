@@ -2,38 +2,51 @@
 
 import { NextUIProvider } from "@nextui-org/react";
 import { useEffect } from "react";
+import { isInApp } from "./utils";
 
 export function UiProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    (async function () {})();
-
     async function initGlobalShortcut() {
       const globalShortcut = await import("@tauri-apps/api/globalShortcut");
       const { appWindow } = await import("@tauri-apps/api/window");
-      const isRegistered = await globalShortcut.isRegistered(
-        "CommandOrControl+,"
+
+      const HIDE_SHORTCUT = "CommandOrControl+Alt+[";
+      const SHOW_SHORTCUT = "CommandOrControl+Alt+]";
+
+      const isHideKeyRegistered = await globalShortcut.isRegistered(
+        SHOW_SHORTCUT
       );
-
-      console.log("ctrl+,", isRegistered);
-
-      // globalShortcut.register("CommandOrControl+,", function () {
-      //   appWindow.hide();
-      // });
-
-      // globalShortcut.register("CommandOrControl+.", function () {
-      //   console.log("trigger ctrl + ]");
-      //   appWindow.show();
-      // });
+      const isShowKeyRegistered = await globalShortcut.isRegistered(
+        SHOW_SHORTCUT
+      );
+      if (!isHideKeyRegistered) {
+        globalShortcut.register(HIDE_SHORTCUT, () => {
+          appWindow.hide();
+        });
+      } else {
+        console.warn(`${HIDE_SHORTCUT} is registered`);
+      }
+      if (!isShowKeyRegistered) {
+        globalShortcut.register(SHOW_SHORTCUT, () => {
+          appWindow.show();
+        });
+      } else {
+        console.warn(`${SHOW_SHORTCUT} is registered`);
+      }
     }
 
     async function destroyGlobalShortcut() {
       const globalShortcut = await import("@tauri-apps/api/globalShortcut");
       globalShortcut.unregisterAll();
     }
-    initGlobalShortcut();
+    if (isInApp()) {
+      initGlobalShortcut();
+    }
 
     return () => {
-      destroyGlobalShortcut();
+      if (isInApp()) {
+        destroyGlobalShortcut();
+      }
     };
   }, []);
 

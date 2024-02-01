@@ -25,3 +25,10 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+*:focus,
+*:focus-visible,
+*:focus-within,
+*:active {
+  outline-color: transparent !important;
+}

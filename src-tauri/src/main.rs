@@ -6,24 +6,6 @@ use tauri::Manager;
 use tauri::SystemTray;
 use tauri::SystemTrayMenu;
 
-/// 初始化热键的绑定
-fn init_hotkey_binding() -> global_hotkey::GlobalHotKeyManager {
-    use global_hotkey::{
-        hotkey::{Code, HotKey, Modifiers},
-        GlobalHotKeyManager,
-    };
-
-    // initialize the hotkeys manager
-    let manager = GlobalHotKeyManager::new().unwrap();
-
-    // construct the hotkey
-    let hotkey = HotKey::new(Some(Modifiers::SHIFT), Code::KeyD);
-
-    // register it
-    let _ = manager.register(hotkey);
-    manager
-}
-
 fn main() {
     tauri::Builder::default()
         .setup(|app| {

@@ -1,55 +1,61 @@
 "use client";
-import dynamic from "next/dynamic";
-import { useEffect } from "react";
+
+import { Minus, Settings, X } from "lucide-react";
+import { useRouter } from "next/navigation";
+
+enum WindowDecorationEvent {
+  Minimize,
+  ToggleMaximize,
+  Close,
+  Hide,
+  Setting,
+}
 
 /* eslint-disable @next/next/no-img-element */
 export function WindowDecoration() {
-  useEffect(() => {
-    const initEvents = async () => {
-      const appWindow = await import("@tauri-apps/api/window");
-      document
-        .getElementById("titlebar-minimize")
-        ?.addEventListener("click", () => appWindow.minimize());
-      document
-        .getElementById("titlebar-maximize")
-        ?.addEventListener("click", () => appWindow.toggleMaximize());
-      document
-        .getElementById("titlebar-close")
-        ?.addEventListener("click", () => appWindow.close());
-    };
-
-    initEvents();
-  }, []);
+  const router = useRouter();
+  const handleWindowDecorationAction = async (event: WindowDecorationEvent) => {
+    const { appWindow } = await import("@tauri-apps/api/window");
+    if (event === WindowDecorationEvent.Close) {
+      appWindow.close();
+    } else if (event === WindowDecorationEvent.Minimize) {
+      appWindow.minimize();
+    } else if (event === WindowDecorationEvent.ToggleMaximize) {
+      appWindow.toggleMaximize();
+    } else if (event === WindowDecorationEvent.Hide) {
+      appWindow.hide();
+    } else if (event === WindowDecorationEvent.Setting) {
+      router.push("/setting");
+    }
+  };
 
   return (
     <div
       data-tauri-drag-region
-      className="h-30 bg-329ea3 select-none flex justify-end fixed top-0 left-0 right-0 z-50"
+      className="h-[25px] bg-[#dbdbdb] select-none flex justify-end fixed top-0 left-0 right-0 z-50"
     >
-      {/* <div
-        className="inline-flex justify-center items-center w-30 h-30 hover:bg-[#5bbec3]"
-        id="titlebar-minimize"
+      <div
+        className="inline-flex  justify-center items-center w-30 h-30 hover:bg-[#718d8d] px-1 cursor-pointer"
+        onClick={() =>
+          handleWindowDecorationAction(WindowDecorationEvent.Setting)
+        }
       >
-        <img
-          src="https://api.iconify.design/mdi:window-minimize.svg"
-          alt="minimize"
-        />
+        <Settings size={16} />
       </div>
       <div
-        className="inline-flex justify-center items-center w-30 h-30 hover:bg-[#5bbec3]"
-        id="titlebar-maximize"
+        className="inline-flex  justify-center items-center w-30 h-30 hover:bg-[#718d8d] px-1 cursor-pointer"
+        onClick={() =>
+          handleWindowDecorationAction(WindowDecorationEvent.Minimize)
+        }
       >
-        <img
-          src="https://api.iconify.design/mdi:window-maximize.svg"
-          alt="maximize"
-        />
+        <Minus size={18} />
       </div>
       <div
-        className="inline-flex justify-center items-center w-30 h-30 hover:bg-[#5bbec3]"
-        id="titlebar-close"
+        className="inline-flex justify-center items-center w-30 h-30 transition-all hover:bg-[#718d8d] px-1 cursor-pointer"
+        onClick={() => handleWindowDecorationAction(WindowDecorationEvent.Hide)}
       >
-        <img src="https://api.iconify.design/mdi:close.svg" alt="close" />
-      </div> */}
+        <X size={18} />
+      </div>
     </div>
   );
 }

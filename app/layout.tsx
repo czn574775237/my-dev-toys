@@ -19,7 +19,7 @@ export default function RootLayout({
       <body className=" !bg-transparent border border-solid h-[100vh]">
         <UiProvider>
           <WindowDecoration />
-          {children}
+          <div className="pt-[25px]">{children}</div>
         </UiProvider>
       </body>
     </html>
