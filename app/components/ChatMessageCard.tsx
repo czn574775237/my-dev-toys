@@ -3,6 +3,8 @@
 import { Avatar, Card, Spinner } from "@nextui-org/react";
 import { ChatMessage } from "../llm/api";
 
+import { parse as markdownParse } from "marked";
+
 export type ChatMessageItem = {
   prompts: ChatMessage[];
   /** 你的问题  */
@@ -39,7 +41,13 @@ export function ChatMessageCard({
 
       {reply && (
         <div className="flex p-2">
-          <Card className="flex-1 p-2 mr-2 bg-blue-200">{reply ?? ""}</Card>
+          <Card className="flex-1 p-2 mr-2 bg-blue-200">
+            <div
+              dangerouslySetInnerHTML={{
+                __html: markdownParse(reply),
+              }}
+            ></div>
+          </Card>
           <Avatar
             className="relative top-[4px]"
             size="sm"

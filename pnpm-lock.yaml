@@ -20,6 +20,9 @@ dependencies:
   lucide-react:
     specifier: ^0.320.0
     version: 0.320.0(react@18.2.0)
+  marked:
+    specifier: ^11.2.0
+    version: 11.2.0
   next:
     specifier: 14.0.4
     version: 14.0.4(react-dom@18.2.0)(react@18.2.0)
@@ -4265,6 +4268,12 @@ packages:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
     dependencies:
       react: 18.2.0
+    dev: false
+
+  /marked@11.2.0:
+    resolution: {integrity: sha512-HR0m3bvu0jAPYiIvLUUQtdg1g6D247//lvcekpHO1WMvbwDlwSkZAX9Lw4F4YHE1T0HaaNve0tuAWuV1UJ6vtw==}
+    engines: {node: '>= 18'}
+    hasBin: true
     dev: false
 
   /merge2@1.4.1:
