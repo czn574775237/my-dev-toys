@@ -22,7 +22,7 @@ export default function AppSettingPage() {
     setAppConfig({
       token,
       proxyUrl,
-    });
+  });
     router.replace("/search");
   };
 
@@ -31,7 +31,11 @@ export default function AppSettingPage() {
       <h2 className="my-1">配置页面</h2>
       <p className="text-xs py-2">
         提示: 可以去
-        <a target="_blank" href="https://github.com/chatanywhere/GPT_API_free">
+        <a
+          className="text-[#08c] font-bold px-1"
+          target="_blank"
+          href="https://github.com/chatanywhere/GPT_API_free"
+        >
           这里
         </a>
         获取免费 API TOKEN, 30次/小时, 点击下方
@@ -41,6 +45,7 @@ export default function AppSettingPage() {
           href="https://github.com/chatanywhere/GPT_API_free"
         ></a>
       </p>
+
       <Input
         type="text"
         label="API TOKEN"
