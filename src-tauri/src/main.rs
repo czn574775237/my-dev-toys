@@ -24,6 +24,7 @@ fn main() {
             apply_blur(&window, Some((18, 18, 18, 125)))
                 .expect("Unsupported platform! 'apply_blur' is only supported on Windows");
 
+            // 配置系统菜单
             let app_handle = app.handle();
             let tray_id = "my-tray";
             SystemTray::new()

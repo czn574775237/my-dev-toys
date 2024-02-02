@@ -19,3 +19,12 @@ export function getAppConfig(): AppConfig {
     };
   }
 }
+
+export function getInitialConfig() {
+  return {
+    defaultWindowSize: {
+      width: 600,
+      height: 500,
+    },
+  };
+}

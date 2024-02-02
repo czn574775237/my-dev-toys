@@ -77,7 +77,7 @@
         "fullscreen": false,
         "height": 336,
         "title": "my-dev-toys",
-        "width": 500,
+        "width": 600,
         "center": true,
         "decorations": false,
         "resizable": true

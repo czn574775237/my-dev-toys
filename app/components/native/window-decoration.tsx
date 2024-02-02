@@ -32,7 +32,7 @@ export function WindowDecoration() {
   return (
     <div
       data-tauri-drag-region
-      className="h-[25px] bg-[#dbdbdb] select-none flex justify-end fixed top-0 left-0 right-0 z-50"
+      className="h-[25px] bg-[#ffffff91] select-none flex justify-end fixed top-0 left-0 right-0 z-50"
     >
       <div
         className="inline-flex  justify-center items-center w-30 h-30 hover:bg-[#718d8d] px-1 cursor-pointer"

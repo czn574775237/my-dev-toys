@@ -22,23 +22,24 @@ import {
   ChatMessageCard,
   ChatMessageItem,
 } from "../components/ChatMessageCard";
-import { getAppConfig } from "../config";
+import { getAppConfig, getInitialConfig } from "../config";
 import { useRouter } from "next/navigation";
 
 type FeaturePromptItem = { id: string; name: string; prompt: string };
 
 const featurePrompts: FeaturePromptItem[] = [
   {
+    id: "question",
+    prompt: "",
+    name: "问答",
+  },
+  {
     id: "translate",
     prompt: `我想让你充当中文翻译员、拼写纠正员和改进员。我会用任何语言与你交谈，你会检测语言，翻译它并用我的文本的更正和改进版本用中文回答。我希望你用更优美优雅的高级英语单词和句子替换我简化的 A0 级单词和句子。保持相同的意思，但使它们更文艺。我要你只回复更正、改进，不要写任何解释。
       我的第一句话是“istanbulu cok seviyom burada olmak cok guzel`,
     name: "翻译",
   },
-  {
-    id: "question",
-    prompt: "",
-    name: "问答",
-  },
+
   {
     id: "completion",
     prompt: "内容续写",
@@ -49,8 +50,10 @@ const featurePrompts: FeaturePromptItem[] = [
 export default function Page() {
   const searchRef = useRef<HTMLInputElement>(null);
   const [searchText, setSearchText] = useState("");
-  const [result, setResult] = useState<{ id: 1; text: "测试内容" }[]>([]);
-  const [confirmSearchText, setConfirmSearchText] = useState("");
+  const [confirmSearchData, setConfirmSearchData] = useState({
+    searchText: "",
+    key: "",
+  });
   const [hasToken, setHasToken] = useState(true);
   const [prompts, setPrompts] = useState<ChatMessage[]>([
     createMessage({ role: "system", content: "请用中文回答" }),
@@ -66,7 +69,8 @@ export default function Page() {
     data: reply,
     error,
   } = useChatCompletion({
-    content: confirmSearchText,
+    key: confirmSearchData.key,
+    content: confirmSearchData.searchText,
     prompts: prompts.concat(
       createMessage({
         role: "system",
@@ -86,13 +90,13 @@ export default function Page() {
         return;
       }
       if (!hasToken) {
+        router.push("/setting");
         return;
       }
 
       if (searchText !== "") {
         await onAdjustWindow();
         searchRef.current?.blur();
-
         onAskAi(searchText);
         setSearchText("");
       }
@@ -101,12 +105,19 @@ export default function Page() {
 
   const onAdjustWindow = async () => {
     const { appWindow, LogicalSize } = await getAppWindow();
-    // appWindow.
-    await appWindow.setSize(new LogicalSize(500, 500));
+    const { width, height } = await appWindow.innerSize();
+    const { defaultWindowSize } = getInitialConfig();
+
+    await appWindow.setSize(
+      new LogicalSize(
+        Math.max(width, defaultWindowSize.width),
+        Math.max(height, defaultWindowSize.height + 200)
+      )
+    );
   };
 
   const onAskAi = async (text: string) => {
-    setConfirmSearchText(text);
+    setConfirmSearchData({ searchText: text, key: Date.now().toString() });
   };
 
   const onChangeSearchText = (e: { target: { value: string } }) => {
@@ -182,12 +193,12 @@ export default function Page() {
       </div>
 
       <ScrollShadow className="h-[calc(100vh-140px)] overflow-y-auto">
-        {confirmSearchText && (
+        {confirmSearchData.searchText && (
           <ChatMessageCard
             loading={isLoading}
             prompts={prompts}
             reply={reply}
-            content={confirmSearchText}
+            content={confirmSearchData.searchText}
             error={error ? error.message : ""}
           />
         )}

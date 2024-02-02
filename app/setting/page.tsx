@@ -22,7 +22,7 @@ export default function AppSettingPage() {
     setAppConfig({
       token,
       proxyUrl,
-  });
+    });
     router.replace("/search");
   };
 
@@ -34,16 +34,18 @@ export default function AppSettingPage() {
         <a
           className="text-[#08c] font-bold px-1"
           target="_blank"
-          href="https://github.com/chatanywhere/GPT_API_free"
+          href="https://github.com/chatanywhere/GPT_API_free?tab=readme-ov-file#%E5%85%8D%E8%B4%B9%E4%BD%BF%E7%94%A8"
         >
           这里
         </a>
-        获取免费 API TOKEN, 30次/小时, 点击下方
-        <b>[申请领取内测免费API Key]</b>
+        获取免费 API TOKEN, 30次/小时, 点击
+        <b></b>
         <a
           className="text-[#08c] pl-2"
-          href="https://github.com/chatanywhere/GPT_API_free"
-        ></a>
+          href="https://api.chatanywhere.org/v1/oauth/free/github/render"
+        >
+          [申请领取内测免费API Key,需要 github 登录]
+        </a>
       </p>
 
       <Input
