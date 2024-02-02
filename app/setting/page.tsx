@@ -18,7 +18,6 @@ export default function AppSettingPage() {
   }, []);
 
   const onSaveSetting = () => {
-    // sk-SKdP42u8NDauYuiDLZQLhwKklabOLFqJLJY0MARfjHu4OzGh
     setAppConfig({
       token,
       proxyUrl,

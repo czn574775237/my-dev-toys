@@ -32,29 +32,34 @@ export function WindowDecoration() {
   return (
     <div
       data-tauri-drag-region
-      className="h-[25px] bg-[#ffffff91] select-none flex justify-end fixed top-0 left-0 right-0 z-50"
+      className="h-[25px] bg-[#ffffff91] select-none flex justify-between  items-center fixed top-0 left-0 right-0 z-50"
     >
-      <div
-        className="inline-flex  justify-center items-center w-30 h-30 hover:bg-[#718d8d] px-1 cursor-pointer"
-        onClick={() =>
-          handleWindowDecorationAction(WindowDecorationEvent.Setting)
-        }
-      >
-        <Settings size={16} />
-      </div>
-      <div
-        className="inline-flex  justify-center items-center w-30 h-30 hover:bg-[#718d8d] px-1 cursor-pointer"
-        onClick={() =>
-          handleWindowDecorationAction(WindowDecorationEvent.Minimize)
-        }
-      >
-        <Minus size={18} />
-      </div>
-      <div
-        className="inline-flex justify-center items-center w-30 h-30 transition-all hover:bg-[#718d8d] px-1 cursor-pointer"
-        onClick={() => handleWindowDecorationAction(WindowDecorationEvent.Hide)}
-      >
-        <X size={18} />
+      <div className="px-2 text-sm flex">AI Toys</div>
+      <div className="h-full flex">
+        <div
+          className="inline-flex justify-center items-center w-30 h-30 hover:bg-[#718d8d] px-1 cursor-pointer"
+          onClick={() =>
+            handleWindowDecorationAction(WindowDecorationEvent.Setting)
+          }
+        >
+          <Settings size={16} />
+        </div>
+        <div
+          className="inline-flex justify-center items-center w-30 h-30 hover:bg-[#718d8d] px-1 cursor-pointer"
+          onClick={() =>
+            handleWindowDecorationAction(WindowDecorationEvent.Minimize)
+          }
+        >
+          <Minus size={18} />
+        </div>
+        <div
+          className="inline-flex justify-center items-center w-30 h-30 transition-all hover:bg-[#718d8d] px-1 cursor-pointer"
+          onClick={() =>
+            handleWindowDecorationAction(WindowDecorationEvent.Hide)
+          }
+        >
+          <X size={18} />
+        </div>
       </div>
     </div>
   );
