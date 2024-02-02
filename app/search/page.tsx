@@ -24,6 +24,7 @@ import {
 } from "../components/ChatMessageCard";
 import { getAppConfig, getInitialConfig } from "../config";
 import { useRouter } from "next/navigation";
+import styles from "./styles.module.css";
 
 type FeaturePromptItem = { id: string; name: string; prompt: string };
 
@@ -149,6 +150,7 @@ export default function Page() {
     <div>
       <Input
         autoFocus
+        className={styles["input-container"]}
         value={searchText}
         onChange={onChangeSearchText}
         size="lg"
