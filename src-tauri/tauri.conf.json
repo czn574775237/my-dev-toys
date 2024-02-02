@@ -75,9 +75,9 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 336,
+        "height": 366,
         "title": "my-dev-toys",
-        "width": 600,
+        "width": 550,
         "center": true,
         "decorations": false,
         "resizable": true

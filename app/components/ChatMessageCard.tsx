@@ -29,13 +29,13 @@ export function ChatMessageCard({
     <div>
       <div className="flex p-2">
         <Avatar
-          className="relative top-[4px]"
+          className="relative top-[4px] !w-[29px]"
           size="sm"
           name="我"
           isBordered
           radius="sm"
         />
-        <Card radius="sm" className="p-2 ml-2">
+        <Card radius="sm" className="p-2 ml-2 flex-1">
           {content}
         </Card>
         {loading && <Spinner size="sm" className="pl-2" />}
@@ -66,7 +66,7 @@ export function ChatMessageCard({
             {error}
           </Card>
           <Avatar
-            className="relative top-[4px]"
+            className="relative top-[4px] !w-[29px]"
             size="sm"
             name="AI"
             isBordered

@@ -112,7 +112,7 @@ export default function Page() {
     await appWindow.setSize(
       new LogicalSize(
         Math.max(width, defaultWindowSize.width),
-        Math.max(height, defaultWindowSize.height + 200)
+        Math.max(height, defaultWindowSize.height + 100)
       )
     );
   };
